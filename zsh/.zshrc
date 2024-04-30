@@ -12,10 +12,6 @@ precmd() { vcs_info }
 
 zstyle ':vcs_info:git:' formats '%b '
 
-setopt PROMPT_SUBST
-PROMPT='%F{green}%n%f %F{blue}%~%f '
-autoload -Uz compinit
-compinit
 # End of lines added by compinstall
 source ./antigen.zsh
 
@@ -25,6 +21,28 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 antigen apply
 
 alias vim="nvim" 
+alias lg="lazygit"
+alias gs="git status"
+alias gf="git fetch"
+alias gp="git pull"
+alias ga="git add ."
+alias gc="git commit"
 
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 setopt MENU_COMPLETE 
+
+# ~/.zshrc
+
+# Find and set branch name var if in git repository.
+function parse_git_branch() {
+    git branch 2> /dev/null | sed -n -e 's/^\* \(.*\)/[\1]/p'
+}
+
+COLOR_DEF=$'%f'
+COLOR_USR=$'%F{green}'
+COLOR_DIR=$'%F{blue}'
+COLOR_GIT=$'%F{red}'
+setopt PROMPT_SUBST
+export PROMPT='${COLOR_USR}%n ${COLOR_DIR}%~ ${COLOR_GIT}$(parse_git_branch)${COLOR_DEF} %F{blue}> '
+autoload -Uz compinit
+compinit
