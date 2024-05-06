@@ -18,10 +18,12 @@ source ./antigen.zsh
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-syntax-highlighting
 
+
 antigen apply
 
 alias vim="nvim" 
 alias lg="lazygit"
+alias ld="lazydocker"
 alias gs="git status"
 alias gf="git fetch"
 alias gp="git pull"
@@ -33,10 +35,13 @@ setopt MENU_COMPLETE
 
 # ~/.zshrc
 
+export EDITOR=nvim
+export VISUAL="$EDITOR"
 # Find and set branch name var if in git repository.
 function parse_git_branch() {
     git branch 2> /dev/null | sed -n -e 's/^\* \(.*\)/[\1]/p'
 }
+
 
 COLOR_DEF=$'%f'
 COLOR_USR=$'%F{green}'
@@ -46,3 +51,7 @@ setopt PROMPT_SUBST
 export PROMPT='${COLOR_USR}%n ${COLOR_DIR}%~ ${COLOR_GIT}$(parse_git_branch)${COLOR_DEF} %F{blue}> '
 autoload -Uz compinit
 compinit
+
+eval "$(zoxide init zsh)"
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
