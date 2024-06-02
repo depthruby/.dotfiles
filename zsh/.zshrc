@@ -24,6 +24,8 @@ antigen apply
 alias vim="nvim" 
 alias lg="lazygit"
 alias ld="lazydocker"
+alias ff="fastfetch"
+alias ff="fastfetch"
 alias gs="git status"
 alias gf="git fetch"
 alias gp="git pull"
@@ -63,3 +65,5 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+#
+fastfetch
